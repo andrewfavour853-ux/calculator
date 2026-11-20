@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Blue Calculator</title>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .calculator {
+    width: 320px;
+    background: #050510;
+    border-radius: 25px;
+    padding: 25px 20px;
+    /* NEON BLUE GLOWING OUTLINE */
+    border: 2px solid #00e5ff;
+    box-shadow: 
+      0 0 10px #00e5ff,
+      0 0 25px #00e5ff,
+      0 0 50px #008cff,
+      0 0 80px #008cff,
+      inset 0 0 15px rgba(0, 229, 255, 0.3);
+    animation: pulse 2s infinite alternate;
+  }
+
+  @keyframes pulse {
+    from {
+      box-shadow: 
+        0 0 10px #00e5ff,
+        0 0 25px #00e5ff,
+        0 0 50px #008cff,
+        inset 0 0 15px rgba(0, 229, 255, 0.3);
+    }
+    to {
+      box-shadow: 
+        0 0 15px #00e5ff,
+        0 0 35px #00e5ff,
+        0 0 70px #008cff,
+        0 0 100px #008cff,
+        inset 0 0 20px rgba(0, 229, 255, 0.5);
+    }
+  }
+
+  #display {
+    width: 100%;
+    height: 70px;
+    background: #000;
+    color: #00e5ff;
+    font-size: 36px;
+    text-align: right;
+    padding: 10px 15px;
+    border: 1px solid #00e5ff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    outline: none;
+    text-shadow: 0 0 10px #00e5ff;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  button {
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: #111128;
+    border: 1px solid #00e5ff;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+  }
+
+  button:hover {
+    background: #00e5ff;
+    color: #000;
+    box-shadow: 0 0 20px #00e5ff;
+  }
+
+  .operator {
+    background: #002a3a;
+    color: #00e5ff;
+  }
+
+  .equal {
+    background: #00e5ff;
+    color: #000;
+    grid-column: span 2;
+  }
+
+  .clear {
+    background: #ff2d55;
+    border-color: #ff2d55;
+    box-shadow: 0 0 8px rgba(255, 45, 85, 0.5);
+  }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+  <input type="text" id="display" readonly placeholder="0">
+  <div class="buttons">
+    <button class="clear" onclick="clearDisplay()">C</button>
+    <button onclick="appendValue('(')">(</button>
+    <button onclick="appendValue(')')">)</button>
+    <button class="operator" onclick="appendValue('/')">÷</button>
+
+    <button onclick="appendValue('7')">7</button>
+    <button onclick="appendValue('8')">8</button>
+    <button onclick="appendValue('9')">9</button>
+    <button class="operator" onclick="appendValue('*')">×</button>
+
+    <button onclick="appendValue('4')">4</button>
+    <button onclick="appendValue('5')">5</button>
+    <button onclick="appendValue('6')">6</button>
+    <button class="operator" onclick="appendValue('-')">-</button>
+
+    <button onclick="appendValue('1')">1</button>
+    <button onclick="appendValue('2')">2</button>
+    <button onclick="appendValue('3')">3</button>
+    <button class="operator" onclick="appendValue('+')">+</button>
+
+    <button onclick="appendValue('0')">0</button>
+    <button onclick="appendValue('.')">.</button>
+    <button onclick="deleteLast()">⌫</button>
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+</div>
+
+<script>
+  let display = document.getElementById('display');
+
+  function appendValue(val) {
+    if (display.value === 'Error') display.value = '';
+    display.value += val;
+  }
+
+  function clearDisplay() {
+    display.value = '';
+  }
+
+  function deleteLast() {
+    display.value = display.value.slice(0, -1);
+  }
+
+  function calculate() {
+    try {
+      display.value = eval(display.value.replace(/÷/g, '/').replace(/×/g, '*'));
+    } catch {
+      display.value = 'Error';
+    }
+  }
+</script>
+
+</body>
+      </html>
